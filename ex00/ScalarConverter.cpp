@@ -66,8 +66,8 @@ void ScalarConverter::printChar(double d)
 {
     std::cout << "char: ";
 
-    if (std::isnan(d) || d < 0 || d > 127)
-        std::cout << "impossible\n";
+    if (d < 0 || d > 127)
+        std::cout << "Impossible\n";
     else if (!std::isprint(static_cast<int>(d)))
         std::cout << "Non displayable\n";
     else
