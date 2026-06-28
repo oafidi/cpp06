@@ -2,7 +2,7 @@
 #include "B.hpp"
 #include "C.hpp"
 #include <iostream>
-#include <exception>
+#include <typeinfo>
 #include <cstdlib>
 
 Base * generate(void)
@@ -19,6 +19,7 @@ Base * generate(void)
 
 void identify(Base* p)
 {
+    std::cout << "identify with pointer    : ";
     if (dynamic_cast<A *>(p))
         std::cout << "A" << std::endl;
     else if (dynamic_cast<B *>(p))
@@ -29,20 +30,21 @@ void identify(Base* p)
 
 void identify(Base& p)
 {
+    std::cout << "identify with reference  : ";
     try {
-        A &derived = dynamic_cast<A &>(p);
+        dynamic_cast<A &>(p);
         std::cout << "A" << std::endl;
     }
     catch (std::bad_cast &e) {}
 
     try {
-        B &derived = dynamic_cast<B &>(p);
+        dynamic_cast<B &>(p);
         std::cout << "B" << std::endl;
     }
     catch (std::bad_cast &e) {}
 
     try {
-        C &derived = dynamic_cast<C &>(p);
+        dynamic_cast<C &>(p);
         std::cout << "C" << std::endl;
     }
     catch (std::bad_cast &e) {}
@@ -50,12 +52,14 @@ void identify(Base& p)
 
 int main()
 {
+    std::srand(time(NULL));
     try {
         for (int i = 0; i < 5; i++)
         {
+            std::cout << "\n     Test N: " << i + 1 << std::endl;
             Base *b = generate();
             identify(b);
-            identify(&(*b));
+            identify(*b);
         }
     }
     catch (std::exception &e)
