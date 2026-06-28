@@ -1,35 +1,40 @@
 #ifndef SCALARCONVERTER_HPP
 # define SCALARCONVERTER_HPP
 
-#include <iostream>
-#include <exception>
-#include <string>
+# include <iostream>
+# include <string>
+# include <sstream>
+# include <climits>
+# include <limits>
+# include <cmath>
+# include <cstdlib>
 
 class ScalarConverter
 {
-	private:
-		static std::string	trim(const std::string& s);
-		static double		parseNumber(const std::string &s);
-		static void			printInvalid(void);
-		static void			printDouble(double val);
-		static void			printFloat(double val);
-		static void			printInt(double val);
-		static void			printChar(double val);
-		static void			printPseudoLiteral(const std::string &s);
+private:
+    ScalarConverter(void);
+    ScalarConverter(const ScalarConverter &other);
+    ScalarConverter &operator=(const ScalarConverter &other);
+    ~ScalarConverter();
 
-    public:
-		ScalarConverter(void);
-		ScalarConverter(const ScalarConverter &copy);
-		ScalarConverter &operator=(const ScalarConverter &copy);
-		~ScalarConverter();
+    static std::string  trim(const std::string &s);
+    static bool         isChar(const std::string &s);
+    static bool         isInt(const std::string &s);
+    static bool         isFloat(const std::string &s);
+    static bool         isDouble(const std::string &s);
+    static bool         isPseudoLiteral(const std::string &s);
 
-		class ValueError : public std::exception
-		{
-			public:
-				const char *what() const throw();
-		};
+    static void         printFloat(float f);
+    static void         printDouble(double d);
+    static void         printAll(char c);
+    static void         printAll(int i);
+    static void         printAll(float f);
+    static void         printAll(double d);
+    static void         printPseudoLiteral(const std::string &s);
+    static void         printInvalid(void);
 
-        static void	convert(const std::string &str);
+public:
+    static void convert(const std::string &s);
 };
 
 #endif
