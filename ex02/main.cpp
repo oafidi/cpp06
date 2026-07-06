@@ -32,20 +32,23 @@ void identify(Base& p)
 {
     std::cout << "identify with reference  : ";
     try {
-        dynamic_cast<A &>(p);
+        A &a = dynamic_cast<A &>(p);
         std::cout << "A" << std::endl;
+        (void)a;
     }
     catch (std::bad_cast &e) {}
 
     try {
-        dynamic_cast<B &>(p);
+        B &b = dynamic_cast<B &>(p);
         std::cout << "B" << std::endl;
+        (void)b;
     }
     catch (std::bad_cast &e) {}
 
     try {
-        dynamic_cast<C &>(p);
+        C &c = dynamic_cast<C &>(p);
         std::cout << "C" << std::endl;
+        (void)c;
     }
     catch (std::bad_cast &e) {}
 }
@@ -60,6 +63,7 @@ int main()
             Base *b = generate();
             identify(b);
             identify(*b);
+            delete b;
         }
     }
     catch (std::exception &e)

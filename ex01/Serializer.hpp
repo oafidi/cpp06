@@ -12,7 +12,7 @@ typedef struct Data
 
 class Serializer
 {
-    public:
+    private:
 		Serializer(void);
 		Serializer(const Serializer &copy);
 		Serializer &operator=(const Serializer &copy);
@@ -21,7 +21,5 @@ class Serializer
 		static uintptr_t serialize(Data* ptr);
 		static Data* deserialize(uintptr_t raw);
 };
-
-
 
 #endif

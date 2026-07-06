@@ -28,7 +28,7 @@ std::string ScalarConverter::trim(const std::string &str)
 
 bool ScalarConverter::isChar(const std::string &s)
 {
-    return (s.size() == 1 && !std::isdigit(static_cast<unsigned char>(s[0])));
+    return (s.size() == 1 && !std::isdigit(static_cast<int>(s[0])));
 }
 
 bool ScalarConverter::isInt(const std::string &s)
@@ -42,11 +42,11 @@ bool ScalarConverter::isInt(const std::string &s)
     if (i == s.length())
         return false;
     for (; i < s.size(); i++)
-        if (!std::isdigit(static_cast<unsigned char>(s[i])))
+        if (!std::isdigit(static_cast<int>(s[i])))
             return false;
     return true;
 }
-
+ 
 bool ScalarConverter::isFloat(const std::string &s)
 {
     bool has_dot = false;
@@ -61,7 +61,7 @@ bool ScalarConverter::isFloat(const std::string &s)
         return false;
     for (; i < s.size(); i++)
     {
-        if (std::isdigit(static_cast<unsigned char>(s[i])))
+        if (std::isdigit(static_cast<int>(s[i])))
             has_digit = true;
         else if (s[i] == '.')
         {
@@ -91,7 +91,7 @@ bool ScalarConverter::isDouble(const std::string &s)
         return false;
     for (; i < s.size(); i++)
     {
-        if (std::isdigit(static_cast<unsigned char>(s[i])))
+        if (std::isdigit(static_cast<int>(s[i])))
             has_digit = true;
         else if (s[i] == '.')
         {
@@ -170,7 +170,7 @@ void ScalarConverter::printInvalid(void)
 
 void ScalarConverter::printAll(char c)
 {
-    if (std::isprint(static_cast<unsigned char>(c)))
+    if (std::isprint(static_cast<int>(c)))
         std::cout << "char: '" << c << "'" << std::endl;
     else
         std::cout << "char: Non displayable" << std::endl;
@@ -242,9 +242,9 @@ void ScalarConverter::convert(const std::string &s)
         printAll(str[0]);
     else if (isInt(str))
     {
-        int val = static_cast<int>(std::strtol(str.c_str(), NULL, 10));
+        int val = std::atoi(str.c_str());
 
-        std::ostringstream oss;
+        std::stringstream oss;
         oss << val;
         if (oss.str() != str)
         {
