@@ -2,7 +2,6 @@
 #include "B.hpp"
 #include "C.hpp"
 #include <iostream>
-#include <typeinfo>
 #include <cstdlib>
 
 Base * generate(void)
